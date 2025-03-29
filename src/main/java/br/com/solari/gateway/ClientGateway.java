@@ -1,16 +1,15 @@
 package br.com.solari.gateway;
 
 import br.com.solari.domain.Client;
-
 import java.util.Optional;
 
 public interface ClientGateway {
 
-	Client save(Client client);
+  Client save(final Client client);
 
-	Optional<Client> findByCpf(String cpf);
+  Optional<Client> findByCpf(final String cpf);
 
-	Client update(Client user);
+  Client update(final Client client);
 
-	void deleteByCpf(String cpf);
+  void deleteByCpf(final String cpf);
 }

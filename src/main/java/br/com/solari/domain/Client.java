@@ -2,6 +2,9 @@ package br.com.solari.domain;
 
 import br.com.solari.domain.exception.DomainException;
 import br.com.solari.domain.exception.ErrorDetail;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -20,6 +23,9 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class Client {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
   @NotBlank(message = "Name is required")

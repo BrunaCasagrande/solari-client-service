@@ -1,5 +1,7 @@
 package br.com.solari.gateway.database.jpa;
 
+import static java.lang.String.format;
+
 import br.com.solari.domain.Client;
 import br.com.solari.exception.GatewayException;
 import br.com.solari.gateway.ClientGateway;
@@ -9,11 +11,9 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static java.lang.String.format;
-
 @Component
 @RequiredArgsConstructor
-public class ClientJpaGateway implements ClientGateway {
+public class ClientGatewayImpl implements ClientGateway {
 
   private final ClientRepository clientRepository;
   private static final String FIND_ERROR_MESSAGE = "User with CPF=[%s] not found.";
@@ -21,13 +21,13 @@ public class ClientJpaGateway implements ClientGateway {
   @Override
   public Client save(final Client client) {
     final var entity =
-            ClientEntity.builder()
-                    .name(client.getName())
-                    .cpf(client.getCpf())
-                    .phoneNumber(client.getPhoneNumber())
-                    .email(client.getEmail())
-                    .password(client.getPassword())
-                    .build();
+        ClientEntity.builder()
+            .name(client.getName())
+            .cpf(client.getCpf())
+            .phoneNumber(client.getPhoneNumber())
+            .email(client.getEmail())
+            .password(client.getPassword())
+            .build();
 
     final var saved = clientRepository.save(entity);
 
@@ -45,9 +45,9 @@ public class ClientJpaGateway implements ClientGateway {
   public Client update(final Client user) {
     try {
       final var entity =
-              clientRepository
-                      .findByCpf(user.getCpf())
-                      .orElseThrow(() -> new GatewayException(format(FIND_ERROR_MESSAGE, user.getCpf())));
+          clientRepository
+              .findByCpf(user.getCpf())
+              .orElseThrow(() -> new GatewayException(format(FIND_ERROR_MESSAGE, user.getCpf())));
 
       entity.setName(user.getName());
       entity.setPhoneNumber(user.getPhoneNumber());
@@ -69,11 +69,11 @@ public class ClientJpaGateway implements ClientGateway {
 
   private Client toResponse(final ClientEntity entity) {
     return Client.builder()
-            .id(entity.getId())
-            .name(entity.getName())
-            .cpf(entity.getCpf())
-            .phoneNumber(entity.getPhoneNumber())
-            .email(entity.getEmail())
-            .build();
+        .id(entity.getId())
+        .name(entity.getName())
+        .cpf(entity.getCpf())
+        .phoneNumber(entity.getPhoneNumber())
+        .email(entity.getEmail())
+        .build();
   }
 }
