@@ -1,12 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>br.com.pupposoft.poc.cleanarch</groupId>
-	<artifactId>poc-clean-arch-pratico</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
-	<name>Exemplo Pratico</name>
-	<description>Exemplo Pratico</description>
+
+	<groupId>com.solari</groupId>
+	<artifactId>solari-client-service</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Solari - Client Service</name>
+	<description>Microservice responsible for managing customers in the Solari system</description>
 
 	<dependencyManagement>
 		<dependencies>
