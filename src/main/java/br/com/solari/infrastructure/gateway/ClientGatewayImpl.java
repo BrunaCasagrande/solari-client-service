@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class ClientGatewayImpl implements ClientGateway {
 
   private final ClientRepository clientRepository;
-  private static final String FIND_ERROR_MESSAGE = "User with CPF=[%s] not found.";
+  private static final String FIND_ERROR_MESSAGE = "Client with CPF=[%s] not found.";
 
   @Override
   public Client save(final Client client) {
@@ -43,24 +43,24 @@ public class ClientGatewayImpl implements ClientGateway {
   }
 
   @Override
-  public Client update(final Client user) {
+  public Client update(final Client client) {
     try {
       final var entity =
           clientRepository
-              .findByCpf(user.getCpf())
-              .orElseThrow(() -> new GatewayException(format(FIND_ERROR_MESSAGE, user.getCpf())));
+              .findByCpf(client.getCpf())
+              .orElseThrow(() -> new GatewayException(format(FIND_ERROR_MESSAGE, client.getCpf())));
 
-      entity.setName(user.getName());
-      entity.setPhoneNumber(user.getPhoneNumber());
-      entity.setEmail(user.getEmail());
-      entity.setPassword(user.getPassword());
-      entity.setAddress(toAddressEntity(user.getAddress()));
+      entity.setName(client.getName());
+      entity.setPhoneNumber(client.getPhoneNumber());
+      entity.setEmail(client.getEmail());
+      entity.setPassword(client.getPassword());
+      entity.setAddress(toAddressEntity(client.getAddress()));
 
       final var updatedEntity = clientRepository.save(entity);
 
       return this.toResponse(updatedEntity);
     } catch (IllegalArgumentException e) {
-      throw new GatewayException(format(FIND_ERROR_MESSAGE, user.getCpf()));
+      throw new GatewayException(format(FIND_ERROR_MESSAGE, client.getCpf()));
     }
   }
 

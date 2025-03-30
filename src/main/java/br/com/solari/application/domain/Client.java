@@ -68,10 +68,10 @@ public class Client {
     return client;
   }
 
-  private static void validate(final Client user) {
+  private static void validate(final Client client) {
     final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     final Validator validator = factory.getValidator();
-    final Set<ConstraintViolation<Client>> violations = validator.validate(user);
+    final Set<ConstraintViolation<Client>> violations = validator.validate(client);
 
     if (!violations.isEmpty()) {
       final List<ErrorDetail> errors =

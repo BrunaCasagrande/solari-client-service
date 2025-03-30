@@ -13,9 +13,9 @@ public class CreateClient {
   private final ClientGateway clientGateway;
 
   public Client execute(final Client request) {
-    final var user = clientGateway.findByCpf(request.getCpf());
+    final var client = clientGateway.findByCpf(request.getCpf());
 
-    if (user.isPresent()) {
+    if (client.isPresent()) {
       throw new ClientAlreadyExistsException(request.getCpf());
     }
 

@@ -14,15 +14,15 @@ public class UpdateClient {
   private final ClientGateway clientGateway;
 
   public Client execute(final String cpf, final UpdateClientDto request) {
-    final Client existingUser =
+    final Client existingClient =
         clientGateway.findByCpf(cpf).orElseThrow(() -> new ClientNotFoundException(cpf));
 
-    existingUser.setName(request.getName());
-    existingUser.setPhoneNumber(request.getPhoneNumber());
-    existingUser.setEmail(request.getEmail());
-    existingUser.setPassword(request.getPassword());
-    existingUser.setAddress(request.getAddress());
+    existingClient.setName(request.getName());
+    existingClient.setPhoneNumber(request.getPhoneNumber());
+    existingClient.setEmail(request.getEmail());
+    existingClient.setPassword(request.getPassword());
+    existingClient.setAddress(request.getAddress());
 
-    return clientGateway.update(existingUser);
+    return clientGateway.update(existingClient);
   }
 }
