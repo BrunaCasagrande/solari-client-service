@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClientGatewayImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Solari - Client Service</a> &gt; <a href="index.source.html" class="el_package">br.com.solari.infrastructure.gateway</a> &gt; <span class="el_source">ClientGatewayImpl.java</span></div><h1>ClientGatewayImpl.java</h1><pre class="source lang-java linenums">package br.com.solari.infrastructure.gateway;
+
+import static java.lang.String.format;
+
+import br.com.solari.application.domain.Address;
+import br.com.solari.application.domain.Client;
+import br.com.solari.application.gateway.exception.GatewayException;
+import br.com.solari.application.gateway.ClientGateway;
+import br.com.solari.infrastructure.persistence.entity.AddressEntity;
+import br.com.solari.infrastructure.persistence.entity.ClientEntity;
+import br.com.solari.infrastructure.persistence.repository.ClientRepository;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
+@Component
+@RequiredArgsConstructor
+public class ClientGatewayImpl implements ClientGateway {
+
+  private final ClientRepository clientRepository;
+  private static final String FIND_ERROR_MESSAGE = &quot;Client with CPF=[%s] not found.&quot;;
+
+  @Override
+  public Client save(final Client client) {
+    final var entity =
+<span class="nc" id="L26">        ClientEntity.builder()</span>
+<span class="nc" id="L27">            .name(client.getName())</span>
+<span class="nc" id="L28">            .cpf(client.getCpf())</span>
+<span class="nc" id="L29">            .phoneNumber(client.getPhoneNumber())</span>
+<span class="nc" id="L30">            .email(client.getEmail())</span>
+<span class="nc" id="L31">            .password(client.getPassword())</span>
+<span class="nc" id="L32">            .address(toAddressEntity(client.getAddress()))</span>
+<span class="nc" id="L33">            .build();</span>
+
+<span class="nc" id="L35">    final var saved = clientRepository.save(entity);</span>
+
+<span class="nc" id="L37">    return this.toResponse(saved);</span>
+  }
+
+  @Override
+  public Optional&lt;Client&gt; findByCpf(final String cpf) {
+<span class="nc" id="L42">    return clientRepository.findByCpf(cpf).map(this::toResponse);</span>
+  }
+
+  @Override
+  public Client update(final Client client) {
+    try {
+<span class="nc" id="L48">      final var entity =</span>
+          clientRepository
+<span class="nc" id="L50">              .findByCpf(client.getCpf())</span>
+<span class="nc" id="L51">              .orElseThrow(() -&gt; new GatewayException(format(FIND_ERROR_MESSAGE, client.getCpf())));</span>
+
+<span class="nc" id="L53">      entity.setName(client.getName());</span>
+<span class="nc" id="L54">      entity.setPhoneNumber(client.getPhoneNumber());</span>
+<span class="nc" id="L55">      entity.setEmail(client.getEmail());</span>
+<span class="nc" id="L56">      entity.setPassword(client.getPassword());</span>
+<span class="nc" id="L57">      entity.setAddress(toAddressEntity(client.getAddress()));</span>
+
+<span class="nc" id="L59">      final var updatedEntity = clientRepository.save(entity);</span>
+
+<span class="nc" id="L61">      return this.toResponse(updatedEntity);</span>
+<span class="nc" id="L62">    } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L63">      throw new GatewayException(format(FIND_ERROR_MESSAGE, client.getCpf()));</span>
+    }
+  }
+
+  @Override
+  public void deleteByCpf(final String cpf) {
+<span class="nc" id="L69">    clientRepository.deleteByCpf(cpf);</span>
+<span class="nc" id="L70">  }</span>
+
+  private Client toResponse(final ClientEntity entity) {
+<span class="nc" id="L73">    return Client.builder()</span>
+<span class="nc" id="L74">        .id(entity.getId())</span>
+<span class="nc" id="L75">        .name(entity.getName())</span>
+<span class="nc" id="L76">        .cpf(entity.getCpf())</span>
+<span class="nc" id="L77">        .phoneNumber(entity.getPhoneNumber())</span>
+<span class="nc" id="L78">        .email(entity.getEmail())</span>
+<span class="nc" id="L79">        .password(entity.getPassword())</span>
+<span class="nc" id="L80">        .address(toAddressDomain(entity.getAddress()))</span>
+<span class="nc" id="L81">        .build();</span>
+  }
+
+  private AddressEntity toAddressEntity(Address address) {
+<span class="nc bnc" id="L85" title="All 2 branches missed.">    if (address == null) return null;</span>
+
+<span class="nc" id="L87">    return AddressEntity.builder()</span>
+<span class="nc" id="L88">        .street(address.getStreet())</span>
+<span class="nc" id="L89">        .number(address.getNumber())</span>
+<span class="nc" id="L90">        .city(address.getCity())</span>
+<span class="nc" id="L91">        .state(address.getState())</span>
+<span class="nc" id="L92">        .zipCode(address.getZipCode())</span>
+<span class="nc" id="L93">        .build();</span>
+  }
+
+  private Address toAddressDomain(AddressEntity entity) {
+<span class="nc bnc" id="L97" title="All 2 branches missed.">    if (entity == null) return null;</span>
+
+<span class="nc" id="L99">    return Address.builder()</span>
+<span class="nc" id="L100">        .id(entity.getId())</span>
+<span class="nc" id="L101">        .street(entity.getStreet())</span>
+<span class="nc" id="L102">        .number(entity.getNumber())</span>
+<span class="nc" id="L103">        .city(entity.getCity())</span>
+<span class="nc" id="L104">        .state(entity.getState())</span>
+<span class="nc" id="L105">        .zipCode(entity.getZipCode())</span>
+<span class="nc" id="L106">        .build();</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

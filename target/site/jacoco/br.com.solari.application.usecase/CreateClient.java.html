@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CreateClient.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Solari - Client Service</a> &gt; <a href="index.source.html" class="el_package">br.com.solari.application.usecase</a> &gt; <span class="el_source">CreateClient.java</span></div><h1>CreateClient.java</h1><pre class="source lang-java linenums">package br.com.solari.application.usecase;
+
+import br.com.solari.application.domain.Client;
+import br.com.solari.application.usecase.exception.ClientAlreadyExistsException;
+import br.com.solari.application.gateway.ClientGateway;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
+@Component
+@RequiredArgsConstructor
+public class CreateClient {
+
+  private final ClientGateway clientGateway;
+
+  public Client execute(final Client request) {
+<span class="fc" id="L16">    final var client = clientGateway.findByCpf(request.getCpf());</span>
+
+<span class="fc bfc" id="L18" title="All 2 branches covered.">    if (client.isPresent()) {</span>
+<span class="fc" id="L19">      throw new ClientAlreadyExistsException(request.getCpf());</span>
+    }
+
+<span class="fc" id="L22">    final var buildDomain =</span>
+<span class="fc" id="L23">        Client.createClient(</span>
+<span class="fc" id="L24">            request.getName(),</span>
+<span class="fc" id="L25">            request.getCpf(),</span>
+<span class="fc" id="L26">            request.getPhoneNumber(),</span>
+<span class="fc" id="L27">            request.getEmail(),</span>
+<span class="fc" id="L28">            request.getPassword(),</span>
+<span class="fc" id="L29">            request.getAddress());</span>
+
+<span class="fc" id="L31">    return clientGateway.save(buildDomain);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
