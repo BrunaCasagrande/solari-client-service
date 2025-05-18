@@ -1,6 +1,12 @@
-FROM eclipse-temurin:17-jdk-jammy
-WORKDIR /app
+FROM eclipse-temurin:21-jdk-jammy
 
-COPY target/solari-client-service.jar app.jar
+# instala netcat para aguardar o DB
+RUN apt-get update \
+ && apt-get install -y netcat \
+ && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY target/*.jar app.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+ENTRYPOINT ["sh","-c","until nc -z solari_client_db 3306; do echo 'Aguardando MySQL...'; sleep 3; done; exec java -jar app.jar"]
