@@ -1,0 +1,8 @@
+br\com\solari\application\usecase\UpdateClientTest.class
+br\com\solari\application\usecase\DeleteClientTest.class
+br\com\solari\application\usecase\SearchClientTest.class
+br\com\solari\application\domain\AddressTest.class
+br\com\solari\infrastructure\controller\ClientControllerTest.class
+br\com\solari\infrastructure\gateway\ClientGatewayImplTest.class
+br\com\solari\application\usecase\CreateClientTest.class
+br\com\solari\application\domain\ClientTest.class
