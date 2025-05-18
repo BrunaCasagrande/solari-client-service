@@ -1,71 +1,115 @@
 package br.com.solari.infrastructure.gateway;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import br.com.solari.application.domain.Address;
 import br.com.solari.application.domain.Client;
+import br.com.solari.infrastructure.persistence.entity.AddressEntity;
+import br.com.solari.infrastructure.persistence.entity.ClientEntity;
+import br.com.solari.infrastructure.persistence.repository.ClientRepository;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.client.MockRestServiceServer;
-import org.springframework.web.client.RestTemplate;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.*;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.*;
-import static org.assertj.core.api.Assertions.assertThat;
-
-@RestClientTest(ClientGatewayImpl.class)
 class ClientGatewayImplTest {
 
-    @Autowired
-    private ClientGatewayImpl clientGateway;
+  @Mock private ClientRepository clientRepository;
 
-    @Autowired
-    private RestTemplate restTemplate;
+  @InjectMocks private ClientGatewayImpl clientGateway;
 
-    private MockRestServiceServer mockServer;
+  private Client client;
+  private ClientEntity clientEntity;
 
-    @BeforeEach
-    void setUp() {
-        mockServer = MockRestServiceServer.createServer(restTemplate);
-    }
-/*
-    @Test
-    void shouldFindClientByCpf() {
-        // Arrange
-        String cpf = "12345678900";
-        String mockResponse = """
-            {
-                "id": 1,
-                "name": "Bruna Casagrande",
-                "cpf": "12345678900",
-                "email": "bruna@example.com",
-                "phoneNumber": "+5511999999999",
-                "password": "Senha@123",
-                "address": {
-                    "street": "Rua das Flores",
-                    "number": "123",
-                    "city": "São Paulo",
-                    "state": "SP",
-                    "zipCode": "01234-567"
-                }
-            }
-        """;
+  @BeforeEach
+  void setUp() {
+    MockitoAnnotations.openMocks(this);
 
-        mockServer.expect(requestTo("/external-api/clients?cpf=" + cpf))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withSuccess(mockResponse, MediaType.APPLICATION_JSON));
+    Address address =
+        Address.builder()
+            .street("Rua das Flores")
+            .number("123")
+            .city("São Paulo")
+            .state("SP")
+            .zipCode("01234-567")
+            .build();
 
-        // Act
-        Client response = clientGateway.findByCpf(cpf).orElse(null);
+    client =
+        Client.builder()
+            .id(1)
+            .name("João Silva")
+            .cpf("12345678900")
+            .phoneNumber("11999999999")
+            .email("joao.silva@example.com")
+            .password("senha123")
+            .address(address)
+            .build();
 
-        // Assert
-        mockServer.verify();
-        assertThat(response).isNotNull();
-        assertThat(response.getName()).isEqualTo("Bruna Casagrande");
-        assertThat(response.getCpf()).isEqualTo("12345678900");
-        assertThat(response.getAddress().getCity()).isEqualTo("São Paulo");
-    }
+    AddressEntity addressEntity =
+        AddressEntity.builder()
+            .street("Rua das Flores")
+            .number("123")
+            .city("São Paulo")
+            .state("SP")
+            .zipCode("01234-567")
+            .build();
 
- */
+    clientEntity =
+        ClientEntity.builder()
+            .id(1)
+            .name("João Silva")
+            .cpf("12345678900")
+            .phoneNumber("11999999999")
+            .email("joao.silva@example.com")
+            .password("senha123")
+            .address(addressEntity)
+            .build();
+  }
+
+  @Test
+  void shouldSaveClient() {
+    when(clientRepository.save(any(ClientEntity.class))).thenReturn(clientEntity);
+
+    Client savedClient = clientGateway.save(client);
+
+    assertNotNull(savedClient);
+    assertEquals(client.getCpf(), savedClient.getCpf());
+    verify(clientRepository, times(1)).save(any(ClientEntity.class));
+  }
+
+  @Test
+  void shouldFindClientByCpf() {
+    when(clientRepository.findByCpf(client.getCpf())).thenReturn(Optional.of(clientEntity));
+
+    Optional<Client> foundClient = clientGateway.findByCpf(client.getCpf());
+
+    assertTrue(foundClient.isPresent());
+    assertEquals(client.getCpf(), foundClient.get().getCpf());
+    verify(clientRepository, times(1)).findByCpf(client.getCpf());
+  }
+
+  @Test
+  void shouldUpdateClient() {
+    when(clientRepository.findByCpf(client.getCpf())).thenReturn(Optional.of(clientEntity));
+    when(clientRepository.save(any(ClientEntity.class))).thenReturn(clientEntity);
+
+    Client updatedClient = clientGateway.update(client);
+
+    assertNotNull(updatedClient);
+    assertEquals(client.getCpf(), updatedClient.getCpf());
+    verify(clientRepository, times(1)).findByCpf(client.getCpf());
+    verify(clientRepository, times(1)).save(any(ClientEntity.class));
+  }
+
+  @Test
+  void shouldDeleteClientByCpf() {
+    doNothing().when(clientRepository).deleteByCpf(client.getCpf());
+
+    clientGateway.deleteByCpf(client.getCpf());
+
+    verify(clientRepository, times(1)).deleteByCpf(client.getCpf());
+  }
 }

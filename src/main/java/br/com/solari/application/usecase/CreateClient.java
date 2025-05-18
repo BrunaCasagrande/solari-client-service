@@ -1,8 +1,8 @@
 package br.com.solari.application.usecase;
 
 import br.com.solari.application.domain.Client;
-import br.com.solari.application.usecase.exception.ClientAlreadyExistsException;
 import br.com.solari.application.gateway.ClientGateway;
+import br.com.solari.application.usecase.exception.ClientAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

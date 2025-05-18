@@ -2,8 +2,8 @@ package br.com.solari.application.usecase;
 
 import br.com.solari.application.domain.Client;
 import br.com.solari.application.dto.UpdateClientDto;
-import br.com.solari.application.usecase.exception.ClientNotFoundException;
 import br.com.solari.application.gateway.ClientGateway;
+import br.com.solari.application.usecase.exception.ClientNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -19,5 +19,4 @@ public class UpdateClientDto {
   private String password;
 
   private Address address;
-
 }

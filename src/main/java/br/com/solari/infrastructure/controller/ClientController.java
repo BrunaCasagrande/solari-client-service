@@ -2,12 +2,12 @@ package br.com.solari.infrastructure.controller;
 
 import br.com.solari.application.domain.Client;
 import br.com.solari.application.dto.UpdateClientDto;
-import br.com.solari.infrastructure.presenter.ClientPresenter;
-import br.com.solari.infrastructure.presenter.response.ClientPresenterResponse;
 import br.com.solari.application.usecase.CreateClient;
 import br.com.solari.application.usecase.DeleteClient;
 import br.com.solari.application.usecase.SearchClient;
 import br.com.solari.application.usecase.UpdateClient;
+import br.com.solari.infrastructure.presenter.ClientPresenter;
+import br.com.solari.infrastructure.presenter.response.ClientPresenterResponse;
 import jakarta.validation.Valid;
 import java.net.URI;
 import lombok.RequiredArgsConstructor;

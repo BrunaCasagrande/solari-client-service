@@ -4,8 +4,8 @@ import static java.lang.String.format;
 
 import br.com.solari.application.domain.Address;
 import br.com.solari.application.domain.Client;
-import br.com.solari.application.gateway.exception.GatewayException;
 import br.com.solari.application.gateway.ClientGateway;
+import br.com.solari.application.gateway.exception.GatewayException;
 import br.com.solari.infrastructure.persistence.entity.AddressEntity;
 import br.com.solari.infrastructure.persistence.entity.ClientEntity;
 import br.com.solari.infrastructure.persistence.repository.ClientRepository;

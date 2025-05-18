@@ -1,8 +1,10 @@
-C:\Users\ribol\Desktop\FIAP\Projeto aprendizado nas ferias\Bruna\Testes Kafka\Projetos\solari-client-service\src\test\java\br\com\solari\application\domain\AddressTest.java
-C:\Users\ribol\Desktop\FIAP\Projeto aprendizado nas ferias\Bruna\Testes Kafka\Projetos\solari-client-service\src\test\java\br\com\solari\application\domain\ClientTest.java
-C:\Users\ribol\Desktop\FIAP\Projeto aprendizado nas ferias\Bruna\Testes Kafka\Projetos\solari-client-service\src\test\java\br\com\solari\application\usecase\CreateClientTest.java
-C:\Users\ribol\Desktop\FIAP\Projeto aprendizado nas ferias\Bruna\Testes Kafka\Projetos\solari-client-service\src\test\java\br\com\solari\application\usecase\DeleteClientTest.java
-C:\Users\ribol\Desktop\FIAP\Projeto aprendizado nas ferias\Bruna\Testes Kafka\Projetos\solari-client-service\src\test\java\br\com\solari\application\usecase\SearchClientTest.java
-C:\Users\ribol\Desktop\FIAP\Projeto aprendizado nas ferias\Bruna\Testes Kafka\Projetos\solari-client-service\src\test\java\br\com\solari\application\usecase\UpdateClientTest.java
-C:\Users\ribol\Desktop\FIAP\Projeto aprendizado nas ferias\Bruna\Testes Kafka\Projetos\solari-client-service\src\test\java\br\com\solari\infrastructure\controller\ClientControllerTest.java
-C:\Users\ribol\Desktop\FIAP\Projeto aprendizado nas ferias\Bruna\Testes Kafka\Projetos\solari-client-service\src\test\java\br\com\solari\infrastructure\gateway\ClientGatewayImplTest.java
+C:\solari\solari-client-service\src\test\java\br\com\solari\application\domain\AddressTest.java
+C:\solari\solari-client-service\src\test\java\br\com\solari\application\domain\ClientTest.java
+C:\solari\solari-client-service\src\test\java\br\com\solari\application\usecase\CreateClientTest.java
+C:\solari\solari-client-service\src\test\java\br\com\solari\application\usecase\DeleteClientTest.java
+C:\solari\solari-client-service\src\test\java\br\com\solari\application\usecase\SearchClientTest.java
+C:\solari\solari-client-service\src\test\java\br\com\solari\application\usecase\UpdateClientTest.java
+C:\solari\solari-client-service\src\test\java\br\com\solari\infrastructure\controller\ClientControllerTest.java
+C:\solari\solari-client-service\src\test\java\br\com\solari\infrastructure\gateway\ClientGatewayImplTest.java
+C:\solari\solari-client-service\src\test\java\br\com\solari\infrastructure\persistence\repository\ClientRepositoryTest.java
+C:\solari\solari-client-service\src\test\java\br\com\solari\infrastructure\presenter\ClientPresenterTest.java

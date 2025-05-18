@@ -1,7 +1,7 @@
 package br.com.solari.application.usecase;
 
-import br.com.solari.application.usecase.exception.ClientNotFoundException;
 import br.com.solari.application.gateway.ClientGateway;
+import br.com.solari.application.usecase.exception.ClientNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

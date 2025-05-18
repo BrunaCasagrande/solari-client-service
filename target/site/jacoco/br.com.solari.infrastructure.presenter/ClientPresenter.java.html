@@ -5,17 +5,17 @@ import br.com.solari.infrastructure.presenter.response.ClientPresenterResponse;
 import org.springframework.stereotype.Component;
 
 @Component
-<span class="nc" id="L8">public class ClientPresenter {</span>
+<span class="fc" id="L8">public class ClientPresenter {</span>
 
   public ClientPresenterResponse parseToResponse(final Client client) {
-<span class="nc" id="L11">    return ClientPresenterResponse.builder()</span>
-<span class="nc" id="L12">        .id(client.getId())</span>
-<span class="nc" id="L13">        .name(client.getName())</span>
-<span class="nc" id="L14">        .cpf(client.getCpf())</span>
-<span class="nc" id="L15">        .phoneNumber(client.getPhoneNumber())</span>
-<span class="nc" id="L16">        .email(client.getEmail())</span>
-<span class="nc" id="L17">        .address(client.getAddress())</span>
-<span class="nc" id="L18">        .build();</span>
+<span class="fc" id="L11">    return ClientPresenterResponse.builder()</span>
+<span class="fc" id="L12">        .id(client.getId())</span>
+<span class="fc" id="L13">        .name(client.getName())</span>
+<span class="fc" id="L14">        .cpf(client.getCpf())</span>
+<span class="fc" id="L15">        .phoneNumber(client.getPhoneNumber())</span>
+<span class="fc" id="L16">        .email(client.getEmail())</span>
+<span class="fc" id="L17">        .address(client.getAddress())</span>
+<span class="fc" id="L18">        .build();</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

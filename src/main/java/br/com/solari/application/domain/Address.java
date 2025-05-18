@@ -2,15 +2,14 @@ package br.com.solari.application.domain;
 
 import br.com.solari.application.domain.exception.DomainException;
 import br.com.solari.application.domain.exception.ErrorDetail;
+import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
-import jakarta.validation.ConstraintViolation;
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
-
 import java.util.List;
 import java.util.Set;
+import lombok.*;
 
 @Getter
 @Setter
@@ -28,15 +27,15 @@ public class Address {
   @NotBlank private String zipCode;
 
   public static Address createAddress(
-          String street, String number, String city, String state, String zipCode) {
+      String street, String number, String city, String state, String zipCode) {
     Address address =
-            Address.builder()
-                    .street(street)
-                    .number(number)
-                    .city(city)
-                    .state(state)
-                    .zipCode(zipCode)
-                    .build();
+        Address.builder()
+            .street(street)
+            .number(number)
+            .city(city)
+            .state(state)
+            .zipCode(zipCode)
+            .build();
 
     validate(address);
 
@@ -50,14 +49,14 @@ public class Address {
 
     if (!violations.isEmpty()) {
       List<ErrorDetail> errors =
-              violations.stream()
-                      .map(
-                              violation ->
-                                      new ErrorDetail(
-                                              violation.getPropertyPath().toString(),
-                                              violation.getMessage(),
-                                              violation.getInvalidValue()))
-                      .toList();
+          violations.stream()
+              .map(
+                  violation ->
+                      new ErrorDetail(
+                          violation.getPropertyPath().toString(),
+                          violation.getMessage(),
+                          violation.getInvalidValue()))
+              .toList();
 
       String firstErrorMessage = errors.get(0).errorMessage();
 

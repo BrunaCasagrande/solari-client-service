@@ -1,10 +1,9 @@
 package br.com.solari.infrastructure.config;
 
+import br.com.solari.application.usecase.exception.BusinessException;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
-
-import br.com.solari.application.usecase.exception.BusinessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
